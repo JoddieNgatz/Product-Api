@@ -1,0 +1,24 @@
+{
+  "name": "product-store-api",
+  "version": "1.0.0",
+  "description": "product store api",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "keywords": [
+    "api",
+    "mongodb",
+    "rest",
+    "express"
+  ],
+  "author": "JNM",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "chai": "^4.3.4",
+    "express": "^4.17.1",
+    "mocha": "^9.0.3",
+    "mongoose": "^5.13.7"
+  }
+}

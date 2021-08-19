@@ -30,9 +30,26 @@ module.exports = app => {
     
     /**
      * @method - POST
-     * @param - /username
+     * @param - /
      * @description - Creates a new product in the database
      */
     app.post("/api/products", controller.createProduct);
 
+
+
+        /**
+     * @method - PUT
+     * @param - /
+     * @description - Updates the product with the provided  _id  with the data provided in the request body
+     */
+     app.put("/api/products/:id", controller.updateProduct);
+
+    
+        
+        /**
+     * @method - PUT
+     * @param - /
+     * @description - Updates the product with the provided  _id  with the data provided in the request body
+     */
+         app.delete("/api/products/:id", controller.deleteProduct);
 }

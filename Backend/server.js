@@ -4,7 +4,7 @@ const cors = require('cors');
 const mongoose = require("mongoose");
 
 var corsOptions = {
-    origin: "http://localhost:8081"//for frontEnd
+    origin: "http://127.0.0.1:8081"//for frontEnd
 };
 
 const db = require('./models');
@@ -29,7 +29,7 @@ app.get("/", (req, res) => {
 
 });
 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`Server running on port: ${PORT} at http://localhost:${PORT}`);

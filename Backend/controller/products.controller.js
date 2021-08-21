@@ -2,6 +2,7 @@
 
 var model = require('../models');
 const product = model.prod;
+const user = model.user;
 
 //Creates a new product in the database
 exports.createProduct = (req, res,next) => {
@@ -105,3 +106,4 @@ exports.deleteProduct = (req, res, next) => {
 
     });
 };
+

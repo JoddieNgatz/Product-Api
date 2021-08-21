@@ -4,6 +4,8 @@
   "description": "product store api",
   "main": "server.js",
   "scripts": {
+    "start": "node server",
+    "dev": "nodemon server",
     "test": "npm run test"
   },
   "keywords": [
@@ -15,11 +17,13 @@
   "author": "JNM",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "chai": "^4.3.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mocha": "^9.0.3",
-    "mongoose": "^5.13.7"
+    "mongoose": "^5.13.7",
+    "nodemon": "^2.0.12"
   }
 }

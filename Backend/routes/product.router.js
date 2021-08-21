@@ -1,9 +1,13 @@
 
 
-module.exports = app => {
+    const express = require('express');
 
+    const router = express.Router();
     const controller = require('../controller/products.controller');
-    console.log('in routes')  
+    
+// const router = express.Router();
+    
+    console.log('in routes')
 
     
     //create profile
@@ -13,7 +17,7 @@ module.exports = app => {
      * @param - /
      * @description - Returns all products in the database as  { products: Product[] }
      */
-     app.get("/api/products/", controller.returnAllProduct);
+     router.get("/", controller.returnAllProduct);
 
     
     
@@ -24,7 +28,7 @@ module.exports = app => {
      * @param - /id
      * @description - Returns the product with the provided  _id  as  { product: Product }
      */
-     app.get("/api/products/:id/", controller.findProduct);
+    router.get("/:id ", controller.findProduct);
 
     //create profile
     
@@ -33,7 +37,7 @@ module.exports = app => {
      * @param - /
      * @description - Creates a new product in the database
      */
-    app.post("/api/products", controller.createProduct);
+     router.post("/", controller.createProduct);
 
 
 
@@ -42,7 +46,7 @@ module.exports = app => {
      * @param - /
      * @description - Updates the product with the provided  _id  with the data provided in the request body
      */
-     app.put("/api/products/:id", controller.updateProduct);
+         router.put("/:id", controller.updateProduct);
 
     
         
@@ -51,5 +55,6 @@ module.exports = app => {
      * @param - /
      * @description - Updates the product with the provided  _id  with the data provided in the request body
      */
-         app.delete("/api/products/:id", controller.deleteProduct);
-}
+    router.delete("/:id", controller.deleteProduct);
+
+module.exports = router;

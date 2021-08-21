@@ -3,9 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var prodschema = new Schema({
-    name:{type:String},
-    descrition: { type: String },
-    price: { type: Number },
+    title: {type:String,required:true},
+    description: {type:String,required:true},
+    imageUrl: {type:String,required:true},
+    price: {type:Number,required:true},
+    userId: {type:String,required:true},
     inStock:{type:Boolean},
     
 });

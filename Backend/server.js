@@ -20,9 +20,15 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: false }));
     
 app.use(express.json());
-    
+ 
+
+// //Routes
+// require('./routes/product.router')(app);
+
 //Routes
-require('./routes/product.router')(app);
+const prodRoutes =require('./routes/product.router');
+app.use('/api/products', prodRoutes);
+
 
 app.get("/", (req, res) => {
     res.status(200).json({ mesaage: "API working Welcome." });

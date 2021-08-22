@@ -2,7 +2,6 @@
 
 var model = require('../models');
 const product = model.prod;
-const user = model.user;
 
 //Creates a new product in the database
 exports.createProduct = (req, res,next) => {
@@ -16,7 +15,6 @@ exports.createProduct = (req, res,next) => {
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             price: req.body.price,
-            userId: req.body.userId,
             inStock: req.body.instock
         });
 
@@ -32,19 +30,18 @@ exports.createProduct = (req, res,next) => {
 
 //Returns the product with the provided  _id  as  { product: Product }
 exports.findProduct = (req, res, next) => {
-    let id = req.params.id;
-    console.log(id);
-    product.findOne({ _id: id }).then(data => {
+    console.log(req.params.id);
+    product.findOne({ _id: req.params.id }).then(data => {
         if (!data) {
+            console.log(data);
             res.status(404).json({error:'Not Found' });
         } else {
             res.status(200).json(data);
-            console.log(data);
         }
     }).catch((err) => {
         res
         .status(500)
-        .send({ error: err });
+        .json({ error: err });
 
     });
 };
@@ -74,10 +71,9 @@ exports.updateProduct = (req, res, next) => {
         description: req.body.description,
         imageUrl: req.body.imageUrl,
         price: req.body.price,
-        userId: req.body.userId,
         inStock: req.body.instock
     });
-    product.UpdateOne({_id: id}, produ).then(data => {
+    product.updateOne({_id: id}, produ).then(data => {
         if (!data) {
             res.status(404).json({message:'Not Found' });
         } else {
@@ -92,8 +88,7 @@ exports.updateProduct = (req, res, next) => {
 };
 
 exports.deleteProduct = (req, res, next) => {
-    let id = req.params.id;
-    product.deleteOne({_id:id}).then(data => {
+    product.deleteOne({_id: req.params.id}).then(data => {
         if (!data) {
             res.status(404).json({ message: 'Not Found' });
         } else {

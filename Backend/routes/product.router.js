@@ -4,7 +4,7 @@
 
     const router = express.Router();
     const controller = require('../controller/products.controller');
-    
+    const auth = require('../middleware/auth');
 // const router = express.Router();
     
     console.log('in routes')
@@ -17,7 +17,7 @@
      * @param - /
      * @description - Returns all products in the database as  { products: Product[] }
      */
-     router.get("/", controller.returnAllProduct);
+     router.get("/products/", auth, controller.returnAllProduct);
 
     
     
@@ -28,7 +28,7 @@
      * @param - /id
      * @description - Returns the product with the provided  _id  as  { product: Product }
      */
-    router.get("/:id ", controller.findProduct);
+     router.get('/:id', auth, controller.findProduct);
 
     //create profile
     
@@ -37,7 +37,7 @@
      * @param - /
      * @description - Creates a new product in the database
      */
-     router.post("/", controller.createProduct);
+     router.post('/', auth, controller.createProduct);
 
 
 
@@ -46,7 +46,7 @@
      * @param - /
      * @description - Updates the product with the provided  _id  with the data provided in the request body
      */
-         router.put("/:id", controller.updateProduct);
+     router.put('/:id', auth, controller.updateProduct);
 
     
         
@@ -55,6 +55,6 @@
      * @param - /
      * @description - Updates the product with the provided  _id  with the data provided in the request body
      */
-    router.delete("/:id", controller.deleteProduct);
+    router.delete('/:id', auth, controller.deleteProduct);
 
 module.exports = router;

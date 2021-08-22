@@ -27,8 +27,10 @@ app.use(express.json());
 
 //Routes
 const prodRoutes =require('./routes/product.router');
-app.use('/api/products', prodRoutes);
-
+app.use('/api/product', prodRoutes);
+//Routes
+const userRoutes =require('./routes/user.routes');
+app.use('/api/', userRoutes);
 
 app.get("/", (req, res) => {
     res.status(200).json({ mesaage: "API working Welcome." });

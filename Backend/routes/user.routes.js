@@ -4,7 +4,7 @@
 
     const router = express.Router();
     const controller = require('../controller/user.controller');
-    
+
 // const router = express.Router();
     
     console.log('in user routes')
@@ -15,9 +15,9 @@
     /**
      * @method - GET
      * @param - /
-     * @description - Returns all products in the database as  { products: Product[] }
+     * @description - login user in the database 
      */
-     router.get("/", controller.login);
+     router.post("/login", controller.login);
 
     
     
@@ -27,26 +27,17 @@
     /**
      * @method - POST
      * @param - /
-     * @description - Creates a new product in the database
+     * @description - Creates a new user in the database
      */
-     router.post("/", controller.register);
+     router.post("/register", controller.register);
 
-
-
+    
+        
     //     /**
     //  * @method - PUT
     //  * @param - /
     //  * @description - Updates the product with the provided  _id  with the data provided in the request body
     //  */
-    //      router.put("/:id", controller.updateProduct);
-
-    
-        
-        /**
-     * @method - PUT
-     * @param - /
-     * @description - Updates the product with the provided  _id  with the data provided in the request body
-     */
-    router.delete("/:email", controller.deleteUser);
+    // router.delete("/:email", controller.deleteUser);
 
 module.exports = router;

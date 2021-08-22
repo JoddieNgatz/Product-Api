@@ -1,6 +1,8 @@
 
 var model = require('../models');
 const user = model.user;
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 //Users
 //Creates a new user in the database
 exports.register= (req, res,next) => {
@@ -10,16 +12,13 @@ exports.register= (req, res,next) => {
     }
     else {
         const usr = new user({
-            title: req.body.title,
-            description: req.body.description,
-            imageUrl: req.body.imageUrl,
-            price: req.body.price,
-            userId: req.body.userId,
-            inStock: req.body.instock
+          username: req.body.username,
+          email: req.body.email,
+          password: bcrypt.hashSync(req.body.password, 4),
         });
 
-        user.save(usr).then((data) => {
-            res.status(200).json({ product: data });
+        usr.save(usr).then((data) => {
+            res.status(200).json({ message:`${req.body.email} registered in` });
         }).catch((err) => {
             
             res.status(500).json({ message: err + 'Error Creating try again' });
@@ -30,36 +29,42 @@ exports.register= (req, res,next) => {
 
 //Returns the product with the provided  _id  as  { product: Product }
 exports.login = (req, res, next) => {
-    let email= req.body.email;
-    user.findOne({ email: email }).then(user => {
-        if (!user) {
-            return res.status(401).json({
-              error: new Error('User not found!')
-            });
+  let email = req.body.email;
+  if (email.includes('@')) { //checks if email is valid   
+      user.findOne({
+          email: req.body.email
+      }).exec((err, user) => {
+          if (err) {
+              res.status(500), json({ message: err });
+              return;
           }
-          bcrypt.compare(req.body.password, user.password).then(
-            (valid) => {
-              if (!valid) {
-                return res.status(401).json({
-                  error: new Error('Incorrect password!')
-                });
-              }
-              res.status(200).json({
-                userId: user._id,
-                token: 'token'
-              });
-            }
-          ).catch(
-            (error) => {
-              res.status(500).json({
-                error: error
-              });
-            }
-          );
-        }).catch((err) => {
-        res
-        .status(500)
-        .send({ error: err });
+          if (!user) {
+              res.status(404).json({ message: "User Not Found. Register" })
+          }
 
-    });
+          var passwordValid = bcrypt.compareSync(
+              req.body.password,
+              user.password
+          );
+          if (!passwordValid) {
+              res.status(401).json({
+                  message: 'Invalid Passowrd'
+              });
+          } else {
+            const token = jwt.sign(
+              { userId: user._id },
+              'JNM Product backend',
+              { expiresIn: '4h' });
+              res.status(200).json({
+                  message: "Logged In",
+                  name: user.email,
+                  token: token,
+              });
+          }
+      });
+  } else {
+      res.status(400).json({ message: "Not an email" });
+  }
+
+
 };

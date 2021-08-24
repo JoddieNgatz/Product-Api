@@ -5,7 +5,8 @@ const product = model.prod;
 
 //Creates a new product in the database
 exports.createProduct = (req, res,next) => {
-    const body = req.body;
+    const body = Json.parse(req.body.product);
+    const url = req.protocol + '://' + req.get('host');
     if (!body) {
         res.status(418).json('No product');
     }
@@ -13,7 +14,7 @@ exports.createProduct = (req, res,next) => {
         const produ = new product({
             title: req.body.title,
             description: req.body.description,
-            imageUrl: req.body.imageUrl,
+            imageUrl: url + '/images/' + req.file.filename,
             price: req.body.price,
             inStock: req.body.instock
         });

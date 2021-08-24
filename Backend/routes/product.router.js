@@ -4,7 +4,8 @@
 
     const router = express.Router();
     const controller = require('../controller/products.controller');
-    const auth = require('../middleware/auth');
+const auth = require('../middleware/auth');
+const multer= require('../middleware/multer.config');
 // const router = express.Router();
     
     console.log('in routes')
@@ -37,7 +38,7 @@
      * @param - /
      * @description - Creates a new product in the database
      */
-     router.post('/', auth, controller.createProduct);
+     router.post('/', auth, multer, controller.createProduct);
 
 
 
